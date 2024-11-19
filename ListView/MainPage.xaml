@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewcells="clr-namespace:ListView.ViewCells"
+             xmlns:templates="clr-namespace:ListView.Templates"
+             x:Class="ListView.MainPage">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+
+            <DataTemplate x:Key="titleViewCell">
+                <viewcells:TitleViewCell/>
+            </DataTemplate>
+            
+            <DataTemplate x:Key="messageViewCell">
+                <viewcells:MessageViewCell/>
+            </DataTemplate>
+
+            <templates:SampleDataTemplateSelector x:Key="SampleDataSelector"
+                                                  TitleTemplate="{StaticResource titleViewCell}"
+                                                  MessageTemplate="{StaticResource messageViewCell}"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    
+    <Grid 
+        RowDefinitions="auto, *">
+        
+        <VerticalStackLayout 
+            Grid.Row="0" 
+            Spacing="4">
+            
+            <Button Text="Sample 1" Command="{Binding Command}" CommandParameter="sample1"/>
+            <Button Text="Sample 2" Command="{Binding Command}" CommandParameter="sample2"/>
+        </VerticalStackLayout>
+
+        <ListView 
+            Grid.Row="1"
+            Margin="5,0,0,0"
+            ItemsSource="{Binding SampleDatas}"
+            ItemTemplate="{StaticResource SampleDataSelector}"
+            HasUnevenRows="True"/>
+    </Grid>
+</ContentPage>
